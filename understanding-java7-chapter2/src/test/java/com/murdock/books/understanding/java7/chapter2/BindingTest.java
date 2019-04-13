@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.script.Bindings;
 import javax.script.Compilable;
+import javax.script.CompiledScript;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -88,7 +89,7 @@ public class BindingTest {
     }
 
     /**
-     * 23170
+     * 11926
      *
      * @throws ScriptException
      */
@@ -97,6 +98,7 @@ public class BindingTest {
         ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
         ScriptEngine js = scriptEngineManager.getEngineByExtension("js");
         Compilable compiledScript = (Compilable) js;
+        CompiledScript compile = compiledScript.compile("a + b;");
 
         long start = System.currentTimeMillis();
         for (int i = 0; i < 100000; i++) {
@@ -104,10 +106,10 @@ public class BindingTest {
             bindings.put("a", 123);
             bindings.put("b", 321);
 
-            js.eval("a + b;", bindings);
+            compile.eval(bindings);
 
         }
-        System.out.println("jdk-js: " + (System.currentTimeMillis() - start));
+        System.out.println("jdk-js-compiled: " + (System.currentTimeMillis() - start));
     }
 
     @Test

@@ -26,7 +26,7 @@ public class ScriptContextTest {
     }
 
     @Test
-    public void attribute() throws Exception {
+    public void attribute() {
         ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
         ScriptEngine js = scriptEngineManager.getEngineByExtension("js");
 
